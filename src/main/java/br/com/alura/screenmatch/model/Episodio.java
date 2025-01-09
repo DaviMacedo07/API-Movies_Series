@@ -17,7 +17,7 @@ public class Episodio {
                 ", titulo='" + titulo + '\'' +
                 ", numeroEpisodio=" + numeroEpisodio +
                 ", avaliacao=" + avaliacao +
-                ", dataLancamento=" + dataLancamento;
+                ", dataLancamento=" + (dataLancamento != null ? dataLancamento : "Data não informada");
     }
 
     public Episodio(Integer numeroTemporada, DadosEpisodio dadosEpisodio) {
@@ -31,17 +31,18 @@ public class Episodio {
             this.avaliacao = 0.0;
         }
 
-        String dataLancamentoStr = dadosEpisodio.dataLancamento();
-        if (dataLancamentoStr != null && !dataLancamentoStr.isEmpty()) {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                this.dataLancamento = LocalDate.parse(dataLancamentoStr, formatter);
-            } catch (DateTimeException ex) {
-                this.dataLancamento = null; // Se não conseguir parsear, atribui null
-            }
-        } else {
-            this.dataLancamento = null; // Se a data for null ou vazia, atribui null
-        }
+    //    String dataLancamentoStr = dadosEpisodio.dataLancamento();
+//        if (dataLancamentoStr != null && !dataLancamentoStr.isEmpty()) {
+//            try {
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//                this.dataLancamento = LocalDate.parse(dataLancamentoStr, formatter);
+//            } catch (DateTimeException ex) {
+//                System.err.println("Erro ao parsear a data: " + dataLancamentoStr);
+//                this.dataLancamento = null; // Continua como null se inválida
+//            }
+//        } else {
+//            this.dataLancamento = null; // String vazia ou null
+//        }
     }
 
 
