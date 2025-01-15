@@ -1,8 +1,11 @@
 package br.com.alura.screenmatch.model;
 
 import br.com.alura.screenmatch.service.ConsultaMyMemory;
+import jakarta.persistence.Entity;
 
 import java.util.OptionalDouble;
+
+@Entity
 
 public class Serie {
     private String titulo;
