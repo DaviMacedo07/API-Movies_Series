@@ -11,7 +11,8 @@ public enum Categoria {
     FICCAO_CIENTIFICA("Sci-Fi"),
     TERROR("Horror"),
     DOCUMENTARIO("Documentary"),
-    THRILLER("Thriller");
+    THRILLER("Thriller"),
+    BIOGRAFIA("Biography");
 
     private String categoriaOmdb;
     Categoria(String categoriaOmdb) {

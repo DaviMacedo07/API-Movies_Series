@@ -1,14 +1,18 @@
 package br.com.alura.screenmatch.principal;
 
 import br.com.alura.screenmatch.model.*;
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoAPI;
 import br.com.alura.screenmatch.service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Component
 public class Principal {
 
     private Scanner leitura = new Scanner(System.in);
@@ -17,6 +21,10 @@ public class Principal {
 
     private final String ENDERECO = "http://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=459f19";
+
+
+    @Autowired
+    private SerieRepository serieRepository;
 
     private List<DadosSerie> dadosSeries = new ArrayList<>();
 
@@ -53,7 +61,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+     //   dadosSeries.add(dados);
+        serieRepository.save(serie);
         System.out.println(dados);
     }
 
@@ -78,16 +88,17 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas() {
-        if (dadosSeries.isEmpty()) {
+        List<Serie> series = serieRepository.findAll();
+        if (series.isEmpty()) {
             System.out.println("Nenhuma série foi buscada ainda.");
-            return;
+        } else {
+            series.forEach(serie -> {
+                System.out.println("Título: " + serie.getTitulo());
+                System.out.println("Gênero: " + serie.getGenero());
+                System.out.println("Total Temporadas: " + serie.getTotalTemporadas());
+                System.out.println("Avaliação: " + serie.getAvaliacao());
+                System.out.println("------------------");
+            });
         }
-
-        List<Serie> series = dadosSeries.stream()
-                .map(Serie::new)  // or d -> new Serie(d)
-                .sorted(Comparator.comparing(Serie::getGenero))
-                .collect(Collectors.toList());
-
-        series.forEach(System.out::println);
     }
-}
+    }
