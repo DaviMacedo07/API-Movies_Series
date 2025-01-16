@@ -36,7 +36,15 @@ public class Serie {
     @Column(length = 1000)
     private String sinopse;
 
-    @Transient
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
+    }
+
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
     private List<Episodio> episodios = new ArrayList<>();
 
     @Override
