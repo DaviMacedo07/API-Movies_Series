@@ -39,6 +39,10 @@ public class Principal {
                 2 - Buscar episódios
                 3 - Listar séries buscadas                
                 4 - Buscar série por título
+                5 - Buscar série por ator(atriz)
+                6 - Top 5 séries
+                7 - Buscar série por categorias
+                8 - Filtrar séries
                 0 - Sair
                 """);
             System.out.print("Escolha uma opção: ");
@@ -52,6 +56,10 @@ public class Principal {
                     case 2 -> buscarEpisodioPorSerie();
                     case 3 -> listarSeriesBuscadas();
                     case 4 -> buscarSeriePorTitulo();
+                    case 5 -> buscarSeriePorAtor();
+                    case 6 -> buscarTopSeries();
+                    case 7 -> buscarSeriesPorCategoria();
+                    case 8 -> filtrarSeriesPorTemporadaEAvaliacao();
                     case 0 -> System.out.println("Saindo...");
                     default -> System.out.println("Opção inválida, tente novamente.");
                 }
@@ -62,7 +70,38 @@ public class Principal {
         }
     }
 
+    private void filtrarSeriesPorTemporadaEAvaliacao() {
+        System.out.println("Filtrar séries ate quantas temporadas? ");
+        var totalTemp = leitura.nextInt();
+        System.out.println("Qual pontuação de avaliação minima? ");
+        var avaliacaoSerie = leitura.nextDouble();
+        leitura.nextLine();
+        List<Serie> filtroSeries = serieRepository.seriesPorTemporadaEAValiacao(totalTemp, avaliacaoSerie);
+        System.out.println("--- SÉRIES FILTRADAS ---");
+        filtroSeries.forEach(s -> System.out.println( s.getTitulo() +  "-- Total de Temporadas: " + s.getTotalTemporadas() + " -- Avaliação: " + s.getAvaliacao()));
+    }
 
+    private void buscarSeriesPorCategoria() {
+        System.out.println("Qual categoria/genero de série você deseja? ");
+        var nomeGenero = leitura.nextLine();
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+        List<Serie> seriesPorCategoria = serieRepository.findByGenero(categoria);
+        System.out.println("Séries da categoria: " + nomeGenero);
+        seriesPorCategoria.forEach(System.out::println);
+    }
+
+    private void buscarTopSeries() {
+        List<Serie> serieTop = serieRepository.findTop5ByOrderByAvaliacaoDesc();
+        serieTop.forEach(s ->  System.out.println(s.getTitulo() + " avaliação: " + s.getAvaliacao()));
+    }
+
+    private void buscarSeriePorAtor() {
+        System.out.println("Digite o nome do ator: ");
+        var nomeAtor = leitura.nextLine();
+        List<Serie> seriesEncontradas = serieRepository.findByAtoresContainingIgnoreCase(nomeAtor);
+        System.out.println("Séries em que o(a): " + nomeAtor + " atuou: ");
+        seriesEncontradas.forEach(s -> System.out.println(s.getTitulo() + " avaliação: " + s.getAvaliacao()));
+    }
 
 
     private void buscarSerieWeb() {

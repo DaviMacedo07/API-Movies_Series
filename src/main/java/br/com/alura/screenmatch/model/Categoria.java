@@ -2,21 +2,23 @@ package br.com.alura.screenmatch.model;
 
 
 public enum Categoria {
-    ACAO("Action"),
-    ROMANCE("Romance"),
-    COMEDIA("Comedy"),
-    DRAMA("Drama"),
-    CRIME("Crime"),
-    AVENTURA("Adventure"),
-    FICCAO_CIENTIFICA("Sci-Fi"),
-    TERROR("Horror"),
-    DOCUMENTARIO("Documentary"),
-    THRILLER("Thriller"),
-    BIOGRAFIA("Biography");
+    ACAO("Action", "Ação"),
+    ROMANCE("Romance", "Romance"),
+    COMEDIA("Comedy", "Comédia"),
+    DRAMA("Drama", "Drama"),
+    CRIME("Crime", "Crime"),
+    AVENTURA("Adventure", "Aventura"),
+    FICCAO_CIENTIFICA("Sci-Fi", "Ficção Científica"),
+    TERROR("Horror", "Terror"),
+    DOCUMENTARIO("Documentary", "Documentário"),
+    THRILLER("Thriller", "Suspense"),
+    BIOGRAFIA("Biography", "Biografia");
 
     private String categoriaOmdb;
-    Categoria(String categoriaOmdb) {
+    private String categoriaPortugues;
+    Categoria(String categoriaOmdb, String categoriaPortugues) {
         this.categoriaOmdb = categoriaOmdb;
+        this.categoriaPortugues = categoriaPortugues;
     }
 
     public static Categoria fromString(String text) {
@@ -46,6 +48,17 @@ public enum Categoria {
 
         throw new IllegalArgumentException("Nenhuma categoria encontrada para: " + text);
     }
-
+    public static Categoria fromPortugues(String text) {
+        if (text == null || text.isEmpty()) {
+            throw new IllegalArgumentException("Categoria não pode ser vazia");
+        }
+        for (Categoria categoria : Categoria.values()) {
+            if (categoria.categoriaPortugues.equalsIgnoreCase(text)) {
+                return categoria;
+            }
+        }
+        throw new IllegalArgumentException("Nenhuma categoria encontrada para a string fornecida: " + text);
     }
+
+}
 
