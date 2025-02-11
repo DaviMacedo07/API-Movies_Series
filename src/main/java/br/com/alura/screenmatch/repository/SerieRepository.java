@@ -21,4 +21,6 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
    @Query("SELECT s FROM Serie s WHERE s.totalTemporadas = :totalTemporadas AND s.avaliacao >= :avaliacao")
    public List<Serie> seriesPorTemporadaEAValiacao(@Param("totalTemporadas") int totalTemporadas, @Param("avaliacao") double avaliacao);
+
+   List<Serie> findTop5ByOrderByEpisodiosDataLancamentoDesc();
 }
