@@ -23,15 +23,8 @@ public class SerieController {
 
     @GetMapping
     public List<SerieDTO> obterSeries() {
-        return servico.obterSeries();
+        return servico.obterTodasAsSeries();
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<SerieDTO> obterSeriePorId(@PathVariable Long id) {
-        SerieDTO serie = servico.obterPorId(id);
-        return ResponseEntity.ok(serie);
-    }
-
 
     @GetMapping("/top5")
     public List<SerieDTO> obterTop5Series() {
@@ -40,7 +33,12 @@ public class SerieController {
 
     @GetMapping("/lancamentos")
     public List<SerieDTO> obterLancamentos() {
-        return servico.obterLancamentos(); // Aqui foi corrigido
+        return servico.obterLancamentos();
+    }
+
+    @GetMapping("/{id}")
+    public SerieDTO obterPorId(@PathVariable Long id) {
+        return servico.obterPorId(id);
     }
 
     @GetMapping("/{id}/temporadas/todas")
@@ -48,4 +46,8 @@ public class SerieController {
         return servico.obterTodasTemporadas(id);
     }
 
+    @GetMapping("/{id}/temporadas/{numero}")
+    public List<EpisodioDTO> obterTemporadasPorNumero(@PathVariable Long id, @PathVariable Long numero){
+        return servico.obterTemporadasPorNumero(id, numero);
+    }
 }

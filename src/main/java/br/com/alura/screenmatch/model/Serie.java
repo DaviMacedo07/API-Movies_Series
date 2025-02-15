@@ -134,6 +134,12 @@ public class Serie {
         this.genero = Categoria.fromString(dadosSerie.genero().split("," )[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
-        this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse()).trim();
+        this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse());
+        if (this.sinopse != null) {
+            this.sinopse = this.sinopse.trim();
+        } else {
+            this.sinopse = "Sinopse indisponível."; // ou outra string padrão
+        }
+
     }
 }

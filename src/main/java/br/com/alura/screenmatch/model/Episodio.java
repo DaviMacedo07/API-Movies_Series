@@ -25,9 +25,7 @@ public class Episodio {
     @JoinColumn(name = "serie_id")
     private Serie serie;
 
-    public Episodio() {
-
-    }
+    public Episodio(){}
 
     public Long getId() {
         return id;
