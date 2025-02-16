@@ -9,17 +9,20 @@
 //
 //@SpringBootApplication
 //public class ScreenmatchApplicationSemWeb implements CommandLineRunner {
-//    @Autowired
-//	private  SerieRepository serieRepository;
+//    private final SerieRepository serieRepository;
+//    private final Principal principal;
+//
+//    public ScreenmatchApplicationSemWeb(SerieRepository serieRepository, Principal principal) {
+//        this.serieRepository = serieRepository;
+//        this.principal = principal;
+//    }
+//
+//    @Override
+//    public void run(String... args) throws Exception {
+//        principal.exibeMenu();
+//    }
 //
 //    public static void main(String[] args) {
 //        SpringApplication.run(ScreenmatchApplicationSemWeb.class, args);
 //    }
-//	@Override
-//	public void run(String... args) throws Exception {
-//    Principal principal = new Principal(serieRepository);
-//    principal.exibeMenu();
-//	}
-//
-//
 //}

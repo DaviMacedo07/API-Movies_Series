@@ -20,8 +20,8 @@ public class Principal {
     private ConverteDados conversor = new ConverteDados();
     private List<DadosSerie> dadosSeries = new ArrayList<>();
 
-    private final String ENDERECO = "http://www.omdbapi.com/?i=tt3896198";
-    private final String API_KEY = "&apikey=6f390493";
+    private final String ENDERECO = "http://www.omdbapi.com/?t=";
+    private final String API_KEY = "&apikey=459f19";
 
     private SerieRepository serieRepository;
     private List<Serie> series = new ArrayList<>();
